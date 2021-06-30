@@ -16,9 +16,9 @@ class TextformatterWebpImages extends Textformatter implements Module {
 	
 	public static function getModuleInfo() {
 		return array(
-			'title' => 'Convert JPG/PNG images to WEBP', 
-			'version' => 1, 
-			'summary' => 'Convert JPG/PNG img tags to use WEBP, auto-creating WEBP images as needed.', 
+			'title' => 'Convert JPG/PNG images to WEBP (src only)', 
+			'version' => 1.1, 
+			'summary' => 'Convert JPG/PNG img tags to use WEBP, auto-creating WEBP images as needed. This forked version only replaces the src attribute.', 
 			'requires' => 'ProcessWire>=3.0.132',
 			); 
 	}
@@ -221,7 +221,7 @@ class TextformatterWebpImages extends Textformatter implements Module {
 			if(!count($imageExts)) return;
 
 			// find all images referenced in attributes
-			$regex = '!=["\'](' . $this->filesUrl . '[^"\'\s]+\.(' . implode('|', $imageExts) . '))[\s"\'?#]!i';
+			$regex = '!src=["\'](' . $this->filesUrl . '[^"\'\s]+\.(' . implode('|', $imageExts) . '))[\s"\'?#]!i';
 			if(!preg_match_all($regex, $value, $matches)) return;
 
 			foreach($matches[0] as $key => $fullMatch) {
